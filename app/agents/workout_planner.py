@@ -4,7 +4,7 @@ from langchain_core.messages import SystemMessage, HumanMessage
 from app.config import settings
 import json
 
-llm = ChatGoogleGenerativeAI(model="gemini-pro", google_api_key=settings.GEMINI_API_KEY)
+llm = ChatGoogleGenerativeAI(model=settings.AGENT_MODEL, google_api_key=settings.GEMINI_API_KEY)
 
 def plan_content(state: AgentState):
     print("--- 📝 Agent 2: Planner ---")

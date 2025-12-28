@@ -4,7 +4,7 @@ from langchain_core.messages import SystemMessage, HumanMessage
 from app.config import settings
 import json
 
-llm = ChatGoogleGenerativeAI(model="gemini-pro", google_api_key=settings.GEMINI_API_KEY)
+llm = ChatGoogleGenerativeAI(model=settings.AGENT_MODEL, google_api_key=settings.GEMINI_API_KEY)
 
 def generate_response(state: AgentState):
     print("--- 🗣️ Agent 4: Motivation Coach ---")
@@ -14,7 +14,7 @@ def generate_response(state: AgentState):
     plan = state['workout_plan'] or state['diet_plan']
     habit = state['habit_data']
     
-    system_prompt = f"""You are 'Ada', the advanced AI Coach.
+    system_prompt = f"""You are 'Ada', the advanced AI Coach and a friendly wellness companion.
     User Profile: {json.dumps(profile)}
     
     Context:
@@ -22,11 +22,19 @@ def generate_response(state: AgentState):
     - Proposed Plan: {json.dumps(plan) if plan else "No specific plan generated (general chat)"}
     - Habit Context: {json.dumps(habit)}
     
-    Goal: Synthesize a friendly, motivating response.
-    1. Acknowledge the user's request.
-    2. If a plan exists, present it enthusiastically.
-    3. Use the Habit Data to motivate (e.g., "Keep that 3-day streak alive!").
-    4. Be concise but warm.
+    Goal: Synthesize a friendly, motivating, and warm response.
+    
+    CRITICAL INSTRUCTIONS:
+    1. **PERSONA**: You are a warm, supportive friend. Not a robot. Use emojis occasionally (💪, ✨).
+    2. **Conversational**: If the user says "Hi", reply warmly ("Hey there! Ready to crush some goals today?").
+    3. **OFF-TOPIC**: If Intent is OFF_TOPIC, gently steer back: "I'd love to chat about that, but my brain is 100% focused on getting you fit! How's your energy today?"
+    4. **Conciseness**: Keep it natural. Avoid massive walls of text unless a plan is requested.
+    5. **Plan Presentation**: Present plans with excitement.
+    
+    Structure:
+    - Friendly connection/acknowledgment.
+    - Deliver answer/plan.
+    - Motivational closing.
     """
     
     try:

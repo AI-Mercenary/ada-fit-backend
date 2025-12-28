@@ -5,14 +5,18 @@ import logging
 import os
 
 # --- Logging Setup ---
-os.makedirs("logs", exist_ok=True)
+# --- Logging Setup ---
+handlers = [logging.StreamHandler()]
+try:
+    os.makedirs("logs", exist_ok=True)
+    handlers.append(logging.FileHandler("logs/backend.log"))
+except Exception:
+    pass # Fallback to console only if read-only filesystem
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[
-        logging.FileHandler("logs/backend.log"),
-        logging.StreamHandler()
-    ]
+    handlers=handlers
 )
 logger = logging.getLogger(__name__)
 

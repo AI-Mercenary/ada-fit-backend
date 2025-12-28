@@ -1,0 +1,11 @@
+# requirements.txt - REACT 18 SAFE VERSIONS
+fastapi==0.104.1              # Stable + CORS perfect
+uvicorn[standard]==0.24.0     # Production ready
+sqlalchemy==2.0.23            # SQLite bulletproof
+alembic==1.12.1               # Migrations stable
+pydantic==2.4.2               # Type safety
+python-dotenv==1.0.0          # .env loading
+langgraph==0.0.14             # LangGraph stable
+langchain==0.1.7              # Agent framework
+langchain-google-genai==0.0.8 # Gemini integration
+google-generativeai==0.3.2    # Free tier

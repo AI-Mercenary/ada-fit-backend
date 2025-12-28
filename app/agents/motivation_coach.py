@@ -42,4 +42,8 @@ def generate_response(state: AgentState):
         return {"final_response": response.content}
     except Exception as e:
         print(f"Error in Coach: {e}")
-        return {"final_response": "I'm having trouble connecting to my motivation core, but I believe in you! Let's just focus on moving today."}
+        error_msg = str(e)
+        if "429" in error_msg or "ResourceExhausted" in error_msg or "quota" in error_msg.lower():
+             return {"final_response": "⚠️ **Whoa, slow down!** I'm thinking too fast. Please give me 10-20 seconds to catch my breath. 🧘‍♂️"}
+        
+        return {"final_response": "I'm having a little trouble connecting right now. Let's take a deep breath and try again in a moment!"}

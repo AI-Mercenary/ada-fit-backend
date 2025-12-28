@@ -11,7 +11,12 @@ class Settings(BaseModel):
     # Cors
     @property
     def BACKEND_CORS_ORIGINS(self) -> list[str]:
-        origins = ["http://localhost:5173", "http://localhost:8080", "http://localhost:3000"]
+        origins = [
+            "http://localhost:5173", 
+            "http://localhost:8080", 
+            "http://localhost:3000",
+            "http://192.168.29.192:8080" # Network device access
+        ]
         if self.FRONTEND_URL:
             origins.append(self.FRONTEND_URL)
         if self.VERCEL_URL:

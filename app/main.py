@@ -40,6 +40,12 @@ app.add_middleware(
 def read_root():
     return {"message": "Welcome to AdaFit API"}
 
+@app.get("/health")
+@app.get("/kaithhealthcheck")
+@app.get("/kaithheathcheck") # Handle typo seen in logs
+def health_check():
+    return {"status": "ok"}
+
 from app.routes import today, profile
 
 # Include routers

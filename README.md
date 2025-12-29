@@ -4,7 +4,37 @@ The intelligent core of the AdaFit application, powered by **FastAPI**, **LangGr
 
 ## 🚀 Features
 
-- **Multi-Agent Orchestration**: Uses LangGraph to manage state between specialized agents (Analyzer, Planner, Habit Tracker, Coach).
+- **Multi-Agent Orchestration**: Uses LangGraph to manage state between specialized agents '(Analyzer, Planner, Habit Tracker, Coach).
+🧠 1. Context Analyzer (
+context_analyzer.py
+)
+Role: The entry point and decision maker.
+What it does: It reads your message and your profile to understand your Intent.
+Categories: It classifies your request into one of these:
+GENERATE_WORKOUT: You want exercise advice.
+GENERATE_DIET: You want food/nutrition advice.
+LOG_ACTIVITY: You are tracking what you did.
+GENERAL_QUERY or OFF_TOPIC: Just chatting.
+📝 2. Strategic Planner (
+workout_planner.py
+)
+Role: The architect.
+When it runs: Only runs if the Analyzer decides you need a Plan (Workout or Diet).
+What it does: Generates structured JSON data for:
+Hard Workouts: Exercises, sets, warmups.
+Diet Plans: Calories, macros (protein/carbs/fats), and specific foods.
+📅 3. Habit Tracker (
+habit_tracker.py
+)
+Role: The accountability partner.
+What it does: currently acts as a mock service for the MVP.
+Output: It injects data about your "Streaks" (e.g., "Current streak: 3 days") to help the Coach define its tone (proud or encouraging).
+🗣️ 4. Motivation Coach (
+motivation_coach.py
+)
+Role: The voice of "Ada" (the user-facing persona).
+What it does: It takes all the raw data from the previous agents (intents, JSON plans, streak stats) and synthesizes the Final Response.
+Personality: Warm, friendly, and motivational. It ensures you don't just get a robot JSON response, but a helpful message like "Hey! Ready to crush some goals? Here is your workout..."
 - **Smart Routing**: automatically distinguishes between simple chat ("Hi") and complex tasks ("Make me a workout") to optimize latency.
 - **Gemini 2.0 Integration**: Leveraging the latest `gemini-2.0-flash-exp` for rapid responses.
 - **Resilient Architecture**: Handles rate limits gracefully with user-friendly fallback messages.

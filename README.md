@@ -1,3 +1,6 @@
+# Frontend Repo Link for Source Code:
+https://github.com/AI-Mercenary/IIT-H_Hackathon
+
 # AdaFit Backend 🧠💪
 
 The intelligent core of the AdaFit application, powered by **FastAPI**, **LangGraph**, and **Google Gemini 2.0**.
